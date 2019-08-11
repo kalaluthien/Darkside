@@ -26,12 +26,12 @@ all: $(TARGET)
 
 # link
 $(TARGET): $(OBJS)
-	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(BIN_PATH)
 	$(CC) -o $(BIN_PATH)/$@ $^ $(INCS) $(LIBS) $(CFLAGS)
 
 # compile
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	@mkdir -p $(BIN_PATH)
+	@mkdir -p $(OBJ_PATH)
 	$(CC) -c -o $@ $^ $(INCS) $(DEFS) $(CFLAGS)
 
 clean:
