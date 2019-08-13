@@ -30,13 +30,13 @@
 #define _LAMBDA_UTILS_UNTIL_0(_0, ...)
 #define _LAMBDA_UTILS_UNTIL_1(_0, _1, ...)
 #define _LAMBDA_UTILS_UNTIL_2(_0, _1, _2, ...) _1
-#define _LAMBDA_UTILS_UNTIL_3(_0, _1, _2, _3 ...) _1, _2
-#define _LAMBDA_UTILS_UNTIL_4(_0, _1, _2, _3, _4 ...) _1, _2, _3
+#define _LAMBDA_UTILS_UNTIL_3(_0, _1, _2, _3, ...) _1, _2
+#define _LAMBDA_UTILS_UNTIL_4(_0, _1, _2, _3, _4, ...) _1, _2, _3
 #define _LAMBDA_UTILS_UNTIL_5(_0, _1, _2, _3, _4, _5, ...) _1, _2, _3, _4
 #define _LAMBDA_UTILS_UNTIL_6(_0, _1, _2, _3, _4, _5, _6, ...) _1, _2, _3, _4, _5
 #define _LAMBDA_UTILS_UNTIL_7(_0, _1, _2, _3, _4, _5, _6, _7, ...) _1, _2, _3, _4, _5, _6
-#define _LAMBDA_UTILS_UNTIL_8(_0, _1, _2, _3, _4, _5, _6, _7, _8 ...) _1, _2, _3, _4, _5, _6, _7
-#define _LAMBDA_UTILS_UNTIL_9(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9 ...) _1, _2, _3, _4, _5, _6, _7, _8
+#define _LAMBDA_UTILS_UNTIL_8(_0, _1, _2, _3, _4, _5, _6, _7, _8, ...) _1, _2, _3, _4, _5, _6, _7
+#define _LAMBDA_UTILS_UNTIL_9(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, ...) _1, _2, _3, _4, _5, _6, _7, _8
 
 #define GET_LAST(...) \
   _LAMBDA_UTILS_AT_(\
