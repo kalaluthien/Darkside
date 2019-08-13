@@ -1,9 +1,10 @@
 # Darkside
 
 ## Environment
-OS: Ubuntu 16.04
+* OS: Ubuntu 16.04
+* CC: gcc version 4.9.2
 
 ## Contents
-1. Coroutine implementation in C99
-2. Closure implementation in C99
-3. Lambdal implementation in C99
+1. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) implementation in C99
+2. [Closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)) implementation in C99
+3. [Lambda](https://en.wikipedia.org/wiki/Anonymous_function#C_(non-standard_extension)) implementation in C99
