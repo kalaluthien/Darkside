@@ -46,11 +46,4 @@
   _LAMBDA_UTILS_UNTIL_(\
       _LAMBDA_UTILS_NUM_OF_ARGS(__VA_ARGS__), NULL, __VA_ARGS__, NULL)
 
-#define GET_HEAD(...) \
-  _LAMBDA_UTILS_AT_(1, NULL, __VA_ARGS__)
-
-#define _GET_TAIL(...) \
-  _LAMBDA_UTILS_UNTIL_(\
-      _LAMBDA_UTILS_NUM_OF_ARGS(__VA_ARGS__), NULL, __VA_ARGS__, NULL)
-
 #endif // __W_LAMBDA_UTILS_H__
