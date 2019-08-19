@@ -132,6 +132,8 @@ bool set_contains_default(set_t set, int elem)
   while (level >= 0) {
     succ = prev->next[level];
 
+    if (!succ) break;
+
     int succ_elem = int_of(succ->data);
 
     if (succ_elem < elem) {
