@@ -7,8 +7,6 @@
 
 #define SET_MAX_LEVEL 10
 
-#define int_of(x) ( *((int *)&(x)) )
-
 struct set_node_struct {
   set_t parent;
   struct set_node_struct *next[SET_MAX_LEVEL];
@@ -16,17 +14,17 @@ struct set_node_struct {
   char data[];
 };
 
+typedef struct set node_struct *node_t;
+
 ////////////////////////////////////////////////////
 // Set Object Management APIs
 ////////////////////////////////////////////////////
 
 void set_init(set_t set, size_t data_size, bool (*compare)(void *, void *))
 {
-  set->head = (struct set_node_struct *)
-    malloc(sizeof(struct set_node_struct) + data_size);
+  set->head = (node_t)malloc(sizeof(struct set_node_struct) + data_size);
 
-  set->tail = (struct set_node_struct *)
-    malloc(sizeof(struct set_node_struct) + data_size);
+  set->tail = (node_t)malloc(sizeof(struct set_node_struct) + data_size);
 
   set->head->parent = set->tail->parent = set;
   set->head->level = set->tail->level = SET_MAX_LEVEL;
@@ -48,6 +46,8 @@ void set_destroy(set_t set)
 ////////////////////////////////////////////////////
 // Set Operation APIs
 ////////////////////////////////////////////////////
+
+#define int_of(x) ( *((int *)&(x)) )
 
 static void set_add_generic(set_t set, void *elem);
 static void set_add_default(set_t set, int elem);
@@ -124,6 +124,26 @@ void set_remove_default(set_t set, int elem)
 
 bool set_contains_default(set_t set, int elem)
 {
-  // TODO
+  node_t prev = set->head;
+  node_t succ = NULL;
+
+  int level = SET_MAX_LEVEL - 1;
+
+  while (level >= 0) {
+    succ = prev->next[level];
+
+    int succ_elem = int_of(succ->data);
+
+    if (succ_elem < elem) {
+      prev = succ;
+    }
+    else if (elem < succ_elem) {
+      level--;
+    }
+    else {
+      return true;
+    }
+  }
+
   return false;
 }
