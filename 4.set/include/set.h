@@ -28,6 +28,8 @@ void set_add(set_t set, void *elem);
 
 void set_remove(set_t set, void *elem);
 
+bool set_contains(set_t set, void *elem);
+
 ////////////////////////////////////////////////////
 
 #if __cplusplus
