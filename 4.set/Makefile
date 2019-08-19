@@ -17,7 +17,7 @@ INCS := -I$(INC_PATH)
 SRCS := $(wildcard $(SRC_PATH)/*.c)
 OBJS := $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o,$(SRCS))
 
-LIBS := -ldl
+LIBS := -lpthread
 DEFS :=
 
 .PHONY: all clean
