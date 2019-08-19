@@ -13,6 +13,10 @@ struct closure_struct {
   closure_func_t func;
 };
 
+////////////////////////////////////////////////////
+// Closure Environment APIs
+////////////////////////////////////////////////////
+
 size_t closure_env_get_size(closure_env_t env)
 {
   return env->size;
@@ -22,6 +26,10 @@ void *closure_env_get_data(closure_env_t env)
 {
   return (void *)env->data;
 }
+
+////////////////////////////////////////////////////
+// Closure APIs
+////////////////////////////////////////////////////
 
 closure_t closure_create(closure_func_t func, size_t size, const void *data_addr)
 {
