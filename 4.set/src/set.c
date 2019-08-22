@@ -1,151 +1,162 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <limits.h>
+#include <time.h>
 #include <pthread.h>
 
 #include "set.h"
 
 #define SET_MAX_LEVEL 10
 
+struct set_node_struct;
+
+typedef struct set_node_struct *node_t;
+
 struct set_node_struct {
-  set_t parent;
-  struct set_node_struct *next[SET_MAX_LEVEL];
+  node_t next[SET_MAX_LEVEL];
   int level;
-  char data[];
+  int key;
+  void *value;
 };
 
-typedef struct set node_struct *node_t;
+struct set_struct {
+  node_t head;
+  node_t tail;
+};
 
 ////////////////////////////////////////////////////
 // Set Object Management APIs
 ////////////////////////////////////////////////////
 
-void set_init(set_t set, size_t data_size, bool (*compare)(void *, void *))
+set_t set_create()
 {
-  set->head = (node_t)malloc(sizeof(struct set_node_struct) + data_size);
+  set_t set = (set_t)malloc(sizeof(struct set_struct));
 
-  set->tail = (node_t)malloc(sizeof(struct set_node_struct) + data_size);
-
-  set->head->parent = set->tail->parent = set;
-  set->head->level = set->tail->level = SET_MAX_LEVEL;
+  set->head = (node_t)malloc(sizeof(struct set_node_struct));
+  set->tail = (node_t)malloc(sizeof(struct set_node_struct));
 
   for (int i = 0; i < SET_MAX_LEVEL; i++) {
     set->head->next[i] = set->tail;
     set->tail->next[i] = NULL;
   }
 
-  set->data_size = data_size;
-  set->compare = compare;
+  set->head->level = SET_MAX_LEVEL;
+  set->tail->level = SET_MAX_LEVEL;
+
+  set->head->key = INT_MIN;
+  set->tail->key = INT_MAX;
+
+  set->head->value = NULL;
+  set->tail->value = NULL;
+
+  return set;
 }
 
 void set_destroy(set_t set)
 {
-  // TODO: implement this after all
+  node_t prev = set->head;
+
+  while (prev != set->tail) {
+    node_t succ = prev->next[0];
+    free(prev);
+    prev = succ;
+  }
+
+  free(set->tail);
 }
 
 ////////////////////////////////////////////////////
 // Set Operation APIs
 ////////////////////////////////////////////////////
 
-#define int_of(x) ( *((int *)&(x)) )
-
-static void set_add_generic(set_t set, void *elem);
-static void set_add_default(set_t set, int elem);
-
-void set_add(set_t set, void *elem)
+bool set_is_empty(set_t set)
 {
-  if (set->compare) {
-    set_add_generic(set, elem);
-  }
-  else {
-    set_add_default(set, int_of(elem));
-  }
+  return set->tail == set->head->next[0];
 }
 
-static void set_remove_generic(set_t set, void *elem);
-static void set_remove_default(set_t set, int elem);
-
-void set_remove(set_t set, void *elem)
+void set_insert(set_t set, int key, void *value)
 {
-  if (set->compare) {
-    set_remove_generic(set, elem);
-  }
-  else {
-    set_remove_default(set, int_of(elem));
-  }
-}
+  srand(time(NULL));
 
-static bool set_contains_generic(set_t set, void *elem);
-static bool set_contains_default(set_t set, int elem);
+  node_t prevs[SET_MAX_LEVEL];
+  node_t prev = set->head;
 
-bool set_contains(set_t set, void *elem)
-{
-  if (set->compare) {
-    return set_contains_generic(set, elem);
+  for (int l = SET_MAX_LEVEL - 1; l >= 0; l--) {
+    while (prev->next[l]->key < key) {
+      prev = prev->next[l];
+    }
+    prevs[l] = prev;
   }
-  else {
-    return set_contains_default(set, int_of(elem));
+
+  node_t succ = prev->next[0];
+
+  if (succ->key == key) {
+    succ->value = value;
+    return;
+  }
+
+  node_t curr = (node_t)malloc(sizeof(struct set_node_struct));
+
+  memset(curr->next, 0, sizeof(node_t) * SET_MAX_LEVEL);
+  curr->level = rand() % SET_MAX_LEVEL + 1;
+  curr->key = key;
+  curr->value = value;
+
+  for (int l = 0; l < curr->level; l++) {
+    curr->next[l] = prevs[l]->next[l];
+    prevs[l]->next[l] = curr;
   }
 }
 
-////////////////////////////////////////////////////
-// Generic Set Operation Implementations
-////////////////////////////////////////////////////
-
-void set_add_generic(set_t set, void *elem)
+void set_delete(set_t set, int key)
 {
-  // TODO
+  node_t prevs[SET_MAX_LEVEL];
+  node_t prev = set->head;
+
+  for (int l = SET_MAX_LEVEL - 1; l >= 0; l--) {
+    while (prev->next[l]->key < key) {
+      prev = prev->next[l];
+    }
+    prevs[l] = prev;
+  }
+
+  node_t succ = prev->next[0];
+
+  if (succ->key == key) {
+    for (int l = 0; l < succ->level; l++) {
+      prevs[l]->next[l] = succ->next[l];
+    }
+    free(succ);
+  }
 }
 
-void set_remove_generic(set_t set, void *elem)
-{
-  // TODO
-}
-
-bool set_contains_generic(set_t set, void *elem)
-{
-  // TODO
-  return false;
-}
-
-////////////////////////////////////////////////////
-// Default Set Operation Implementations
-////////////////////////////////////////////////////
-
-void set_add_default(set_t set, int elem)
-{
-  // TODO
-}
-
-void set_remove_default(set_t set, int elem)
-{
-  // TODO
-}
-
-bool set_contains_default(set_t set, int elem)
+bool set_contains(set_t set, int key)
 {
   node_t prev = set->head;
-  node_t succ = NULL;
 
-  int level = SET_MAX_LEVEL - 1;
-
-  while (level >= 0) {
-    succ = prev->next[level];
-
-    if (!succ) break;
-
-    int succ_elem = int_of(succ->data);
-
-    if (succ_elem < elem) {
-      prev = succ;
-    }
-    else if (elem < succ_elem) {
-      level--;
-    }
-    else {
-      return true;
+  for (int l = SET_MAX_LEVEL - 1; l >= 0; l--) {
+    while (prev->next[l]->key < key) {
+      prev = prev->next[l];
     }
   }
 
-  return false;
+  node_t succ = prev->next[0];
+
+  return succ->key == key;
+}
+
+void *set_query(set_t set, int key)
+{
+  node_t prev = set->head;
+
+  for (int l = SET_MAX_LEVEL - 1; l >= 0; l--) {
+    while (prev->next[l]->key < key) {
+      prev = prev->next[l];
+    }
+  }
+
+  node_t succ = prev->next[0];
+
+  return (succ->key == key) ? succ->value : NULL;
 }

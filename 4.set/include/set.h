@@ -9,26 +9,23 @@ extern "C" {
 
 ////////////////////////////////////////////////////
 
-struct set_node_struct;
-
-struct set_struct {
-  struct set_node_struct *head;
-  struct set_node_struct *tail;
-  size_t data_size;
-  bool (*compare)(void *, void *);
-};
+struct set_struct;
 
 typedef struct set_struct *set_t;
 
-void set_init(set_t set, size_t data_size, bool (*compare)(void *, void *));
+set_t set_create(void);
 
 void set_destroy(set_t set);
 
-void set_add(set_t set, void *elem);
+bool set_is_empty(set_t set);
 
-void set_remove(set_t set, void *elem);
+void set_insert(set_t set, int key, void *value);
 
-bool set_contains(set_t set, void *elem);
+void set_delete(set_t set, int key);
+
+bool set_contains(set_t set, int key);
+
+void *set_query(set_t set, int key);
 
 ////////////////////////////////////////////////////
 
