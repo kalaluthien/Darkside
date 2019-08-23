@@ -1,15 +1,18 @@
 # Darkside
 
-C Code Blocks for { Proof of Concept, Ease of System Programming, Fun }
+C99 can do everything!
 
 ## Environment
 * OS: Ubuntu 16.04
 * CC: gcc version 4.9.2
 
 ## Contents
-1. [Coroutine](https://en.wikipedia.org/wiki/Coroutine) implementation in C99
-2. [Closure](https://en.wikipedia.org/wiki/Closure_(computer_programming)) implementation in C99
-3. [Lambda](https://en.wikipedia.org/wiki/Anonymous_function) implementation in C99
-4. [SkipList](https://en.wikipedia.org/wiki/Skip_list) implementation in C99 -- WIP
+1. [Coroutine](https://en.wikipedia.org/wiki/Coroutine)
+2. [Closure](https://en.wikipedia.org/wiki/Closure_(computer_programming))
+3. [Lambda](https://en.wikipedia.org/wiki/Anonymous_function)
+4. [SkipList](https://en.wikipedia.org/wiki/Skip_list)
+  * _TODO_: optimization
   * _TODO_: add performance benchmark
   * _TODO_: support thread-safty
+5. [Iterator](https://en.wikipedia.org/wiki/Iterator) -- WIP
+6. [PatternMatching](https://en.wikipedia.org/wiki/Pattern_matching) -- WIP
