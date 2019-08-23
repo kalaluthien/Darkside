@@ -223,8 +223,7 @@ static int random_level()
 
   int level = 0;
 
-  while (level < MAX_LEVEL) {
-    level++;
+  while (++level < MAX_LEVEL) {
     if (rand() % 2) break;
   }
 
