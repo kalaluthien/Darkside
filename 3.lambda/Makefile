@@ -35,5 +35,6 @@ $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	$(CC) -c -o $@ $^ $(INCS) $(DEFS) $(CFLAGS)
 
 clean:
+	rm -f ./.func_*.so | true
 	rm -f $(OBJ_PATH)/*.o | true
 	rm -f $(BIN_PATH)/$(TARGET) | true

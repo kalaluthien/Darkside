@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
@@ -10,7 +11,13 @@ void *lambda_from_string(
     const char *arguments,
     const char *body)
 {
-  srand(time(NULL));
+  static bool initialized = false;
+
+  if (!initialized) {
+    srand(time(NULL));
+    initialized = true;
+  }
+
   int id = rand();
 
   char path[FILENAME_MAX];
