@@ -10,9 +10,8 @@ C99 can do everything!
 1. [Coroutine](https://en.wikipedia.org/wiki/Coroutine)
 2. [Closure](https://en.wikipedia.org/wiki/Closure_(computer_programming))
 3. [Lambda](https://en.wikipedia.org/wiki/Anonymous_function)
-4. [SkipList](https://en.wikipedia.org/wiki/Skip_list)
-  * _TODO_: optimization
+4. [SkipList](https://en.wikipedia.org/wiki/Skip_list) -- WIP
   * _TODO_: add performance benchmark
   * _TODO_: support thread-safty
-5. [Iterator](https://en.wikipedia.org/wiki/Iterator) -- WIP
-6. [PatternMatching](https://en.wikipedia.org/wiki/Pattern_matching) -- WIP
+5. [PatternMatching](https://en.wikipedia.org/wiki/Pattern_matching) -- WIP
+6. [Functor](https://en.wikipedia.org/wiki/Functor) -- WIP
