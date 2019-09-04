@@ -13,5 +13,5 @@ C99 can do everything!
 4. [SkipList](https://en.wikipedia.org/wiki/Skip_list) -- WIP
   * _TODO_: add performance benchmark
   * _TODO_: support thread-safty
-5. [PatternMatching](https://en.wikipedia.org/wiki/Pattern_matching) -- WIP
-6. [Functor](https://en.wikipedia.org/wiki/Functor) -- WIP
+5. [PatternMatching](https://en.wikipedia.org/wiki/Pattern_matching)
+  * Sample implemenation of `Maybe T` and `List T` provived

@@ -3,7 +3,7 @@ TARGET := test5.out
 
 # compiler settings
 CC := gcc
-CFLAGS := -g -O3 -std=c99
+CFLAGS := -g -O3 -std=gnu99
 
 # dir settings
 ROOT_DIR := .
