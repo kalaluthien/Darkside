@@ -14,4 +14,5 @@ C99 can do everything!
   * _TODO_: add performance benchmark
   * _TODO_: support thread-safty
 5. [PatternMatching](https://en.wikipedia.org/wiki/Pattern_matching)
-  * Sample implemenation of `Maybe T` and `List T` provived
+  * Sample DataTypes(`BTree`, `Pair`, `Maybe` and `List`) are provived
+6. []
