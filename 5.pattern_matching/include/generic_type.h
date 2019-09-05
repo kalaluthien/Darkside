@@ -55,7 +55,7 @@ struct T(__VA_ARGS__) T##_of(__VA_ARGS__)
 /* list(T) list_push(T, list(T) *); */
 #define list_push(T) CONCAT(list_push, T)
 #define list_push_of(T) \
-list(T) list_push(T)(T x, list(T) *xs) \
+static list(T) list_push(T)(T x, list(T) *xs) \
 {\
   list(T) l;\
   l.match_tag = Cons;\
@@ -67,7 +67,7 @@ list(T) list_push(T)(T x, list(T) *xs) \
 /* T list_head(list(T) *); */
 #define list_head(T) CONCAT(list_head, T)
 #define list_head_of(T) \
-T list_head(T)(list(T) *l)\
+static T list_head(T)(list(T) *l)\
 {\
   return l->match_val.Cons.head;\
 }
@@ -75,7 +75,7 @@ T list_head(T)(list(T) *l)\
 /* list(T) *list_tail(list(T) *); */
 #define list_tail(T) CONCAT(list_tail, T)
 #define list_tail_of(T) \
-list(T) *list_tail(T)(list(T) *l)\
+static list(T) *list_tail(T)(list(T) *l)\
 {\
   return AS(list(T) *, l->match_val.Cons.tail);\
 }
