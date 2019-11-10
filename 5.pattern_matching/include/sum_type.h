@@ -18,7 +18,7 @@ extern "C" {
 
 #define with(tag, var) \
   if (_object.match_tag == tag && !done)\
-    for (typeof(_object.match_val.tag) var = _object.match_val.tag; !done; done = true)
+    for (var = _object.match_val.tag; !done; done = true)
 
 ////////////////////////////////////////////////////
 #endif
