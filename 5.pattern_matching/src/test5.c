@@ -6,19 +6,13 @@
 // Custom DataType Example
 ////////////////////////////////////////////////////
 
-typedef struct {
-  enum { None, Some } match_tag;
-  union { void *None; void *Some; } match_val;
-} option_t;
+sumtype(option_t, void*, None, void*, Some);
 
-typedef struct btree_struct btree_t;
+struct btree_t;
 
-typedef struct { btree_t *lst; btree_t *rst; } subtree_t;
+typedef struct { struct btree_t *lst; struct btree_t *rst; } subtree_t;
 
-struct btree_struct {
-  enum { Leaf, Branch } match_tag;
-  union { int Leaf; subtree_t Branch; } match_val;
-};
+sumtype(btree_t, int, Leaf, subtree_t, Branch);
 
 ////////////////////////////////////////////////////
 // Pattern Matching Test
